@@ -14,7 +14,7 @@ stats_path = './data_sets/fid_stats_imagenet_valid.npz' # training set statistic
 inception_path = fid.check_or_download_inception(None) # download inception network
 
 # loads all images into memory (this might require a lot of RAM!)
-image_list = glob.glob(os.path.join(datapath, '*.png'))
+image_list = glob.glob(os.path.join(image_path, '*.png'))
 images = np.array([imread(str(fn)).astype(np.float32) for fn in files])
 
 # load precalculated training set statistics
