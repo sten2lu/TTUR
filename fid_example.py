@@ -23,7 +23,7 @@ images = np.array([imread(str(fn)).astype(np.float32) for fn in image_list])
 print("%d images found and loaded" % len(images))
 
 # load precalculated training set statistics
-f = np.load(path)
+f = np.load(stats_path)
 mu_real, sigma_real = f['mu'][:], f['sigma'][:]
 f.close()
 
