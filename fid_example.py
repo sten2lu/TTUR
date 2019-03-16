@@ -5,8 +5,14 @@ import glob
 #os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import numpy as np
 import fid
-from scipy.misc import imread
+
 import tensorflow as tf
+
+#from scipy.misc import imread
+from imageio import imread
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 
 # Paths
 image_path = './data_sets/single_images/' # set path to some generated images
@@ -19,6 +25,7 @@ print("ok")
 # loads all images into memory (this might require a lot of RAM!)
 print("load images..", end=" " , flush=True)
 image_list = glob.glob(os.path.join(image_path, '*.png'))
+#print(image_list)
 images = np.array([imread(str(fn)).astype(np.float32) for fn in image_list])
 print("%d images found and loaded" % len(images))
 

@@ -21,7 +21,10 @@ import numpy as np
 import os
 import gzip, pickle
 import tensorflow as tf
-from scipy.misc import imread
+#from scipy.misc import imread
+from imageio import imread
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 from scipy import linalg
 import pathlib
 import urllib
@@ -217,7 +220,7 @@ def get_activations_from_files(files, sess, batch_size=50, verbose=False):
     n_used_imgs = n_batches*batch_size
     pred_arr = np.empty((n_used_imgs,2048))
     for i in range(n_batches):
-        if verbose:
+        if True: #verbose:
             print("\rPropagating batch %d/%d" % (i+1, n_batches), end="", flush=True)
         start = i*batch_size
         end = start + batch_size
