@@ -195,7 +195,9 @@ def load_image_batch(files):
     Returns:
     -- A numpy array of dimensions (num_images,hi, wi, 3) representing the image pixel values.
     """
-    return np.array([imread(str(fn)).astype(np.float32) for fn in files])
+    arr = np.array([imread(str(fn)).astype(np.float32) for fn in files])[:,:,:,:3]
+    #print(arr.shape)
+    return arr
 
 def get_activations_from_files(files, sess, batch_size=50, verbose=False):
     """Calculates the activations of the pool_3 layer for all images.
@@ -251,7 +253,6 @@ def calculate_activation_statistics_from_files(files, sess, batch_size=50, verbo
     mu = np.mean(act, axis=0)
     sigma = np.cov(act, rowvar=False)
     return mu, sigma
-    
 #-------------------------------------------------------------------------------
 
 
@@ -289,7 +290,7 @@ def _handle_path(path, sess, low_profile=False):
         if low_profile:
             m, s = calculate_activation_statistics_from_files(files, sess)
         else:
-            x = np.array([imread(str(fn)).astype(np.float32) for fn in files])
+            x = np.array([imread(str(fn)).astype(np.float32) for fn in files])[:,:,:,:3]
             m, s = calculate_activation_statistics(x, sess)
             del x #clean up memory
     return m, s
